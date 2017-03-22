@@ -25,10 +25,6 @@ router.route('/')
   });
 });
 
-router.route('/new')
-.post((req, res) =>{
-
-});
 
 router.route('/:id/edit')
 .put((req, res) =>{
@@ -45,6 +41,19 @@ router.route('/:id/edit')
   })
   .then((task) =>{
     res.send('put done');
+  });
+});
+
+router.route('/:id')
+.delete((req, res) =>{
+  Card.destroy(
+  {
+    where:{
+      id: req.params.id
+    }
+  })
+  .then((task)=>{
+    res.send('deleted done');
   });
 });
 
