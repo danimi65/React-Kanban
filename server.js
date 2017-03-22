@@ -13,6 +13,7 @@ app.use(bodyParser.urlencoded({
   extended:true
 }));
 
+app.use(express.static('public'));
 app.use(bodyParser.json({
   extended:true
 }));
