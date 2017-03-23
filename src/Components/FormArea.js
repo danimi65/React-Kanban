@@ -1,6 +1,18 @@
 import React from 'react';
 
 class FormArea extends React.Component {
+  constructor(){
+    super();
+    
+    this.state = {
+    title: " ",
+    priority: " ",
+    status: "to do",
+    createdBy: " ",
+    assignedTo: " "
+  }
+
+  }
 
   render(){
     return(
