@@ -8,10 +8,11 @@ const { Card } = db;
 
 router.route('/')
 .get((req, res) =>{
-  Card.findAll()
-  .then(cards =>{
-    res.json({cardList:{cards}});
+  Card.findAll({
 
+  })
+  .then((cards) =>{
+    res.send(cards);
   });
 })
 .post((req, res) =>{
@@ -25,6 +26,43 @@ router.route('/')
   });
 });
 
+router.route('/todo')
+.get((req, res) =>{
+  Card.findAll({
+    where:{
+      status: 'to do'
+    }
+  })
+  .then((cards) =>{
+   res.json(cards);
+  });
+});
+
+router.route('/current')
+.get((req, res) =>{
+  Card.findAll({
+    where:{
+      status: 'current'
+    }
+  })
+  .then((cards) =>{
+    res.json(cards);
+    
+  });
+});
+
+router.route('/completed')
+.get((req, res) =>{
+  Card.findAll({
+    where:{
+      status: 'completed'
+    }
+  })
+  .then((cards) =>{
+    res.json(cards);
+    
+  });
+});
 
 router.route('/:id/edit')
 .put((req, res) =>{

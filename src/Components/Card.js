@@ -2,9 +2,9 @@ import React from 'react';
 
 const Card = (props) => (
     <div>
-      {props.title}
-      {props.priority}
-      {props.status}
+    <p>{props.title}</p>
+    <p>{props.priority}</p>
+    <p>{props.status}</p>
   </div>
 )
 
