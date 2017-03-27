@@ -24,8 +24,8 @@ router.route('/')
     createdBy: req.body.createdBy,
     assignedTo: req.body.assignedTo
   })
-  .then((task) =>{
-    res.send('congrats you posted');
+  .then(task =>{
+    res.send(task);
   });
 });
 

@@ -33,7 +33,7 @@ class App extends Component {
     // });
     
 
- addCard(){
+ addCardReq(card){
     return new Promise( (resolve, reject) =>{
     function reqListener () {
       let data = JSON.parse(this.responseText);
@@ -42,8 +42,8 @@ class App extends Component {
     }
     var oReq = new XMLHttpRequest();
     oReq.addEventListener("load", reqListener);
-    oReq.open("POST", "/api/card");
-    oReq.send();
+    oReq.open("POST", "/api/card", true);
+    oReq.send(JSON.stringify(card));
   });
   }
 
@@ -67,7 +67,7 @@ class App extends Component {
     function reqListener () {
       let data = JSON.parse(this.responseText);
       resolve(data);
-    console.log(this.responseText);
+    // console.log(this.responseText);
     }
     var oReq = new XMLHttpRequest();
     oReq.addEventListener("load", reqListener);

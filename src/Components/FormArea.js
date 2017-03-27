@@ -1,4 +1,5 @@
 import React from 'react';
+// import addCardReq from '../Containers/App/App.js'
 
 
 class FormArea extends React.Component {
@@ -19,20 +20,30 @@ class FormArea extends React.Component {
   this.statusValue= this.statusValue.bind(this);
   this.createdByValue= this.createdByValue.bind(this);
   this.assignedToValue= this.assignedToValue.bind(this);
+  this.addCardReq = this.addCardReq.bind(this);
   }
 
-  addCard(card){
+  addCardReq(card){
     return new Promise( (resolve, reject) =>{
     function reqListener () {
-      let data = JSON.parse(this.responseText);
+      let data = this.responseText;
       resolve(data);
     console.log(this.responseText);
     }
     var oReq = new XMLHttpRequest();
     oReq.addEventListener("load", reqListener);
-    oReq.open("POST", "/api/card");
-    oReq.send(card);
+    oReq.open("POST", "/api/card", true);
+    oReq.setRequestHeader("Content-type", "application/json")
+    oReq.send(JSON.stringify(card));
   });
+  }
+
+  addCard(data){
+    this.addCardReq(data)
+    .then(data =>{
+      //send data
+      console.log('data', data);
+    });
   }
 
   handleSubmit(event){
@@ -93,7 +104,7 @@ class FormArea extends React.Component {
             <input type="text" name="Status" placeholder="Status" onChange={this.statusValue}/> 
             </div>
              <div>
-            <input type="text" name="CreatedAt" placeholder="Created At" onChange={this.createdByValue}/> 
+            <input type="text" name="CreatedBy" placeholder="Created By" onChange={this.createdByValue}/> 
             </div>
              <div>
             <input type="text" name="AssignedTo" placeholder="Assigned To" onChange={this.assignedToValue}/> 
