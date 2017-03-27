@@ -42,7 +42,7 @@ class App extends Component {
     }
     var oReq = new XMLHttpRequest();
     oReq.addEventListener("load", reqListener);
-    oReq.open("POST", "/api/card/");
+    oReq.open("POST", "/api/card");
     oReq.send();
   });
   }
@@ -94,21 +94,21 @@ class App extends Component {
     .then( data =>{
       data.forEach( card =>{
         console.log('card', card);
-        this.props.onAddCard(card.title, card.status, card.priority);
+        this.props.onAddCard(card.title, card.status, card.priority, card.createdBy, card.AssignedTo);
       });
     })
      this.getCurrentCards()
     .then( data =>{
       data.forEach( card =>{
         console.log('card', card);
-        this.props.onAddCard(card.title, card.status, card.priority);
+        this.props.onAddCard(card.title, card.status, card.priority, card.createdBy, card.AssignedTo);
       });
     })
      this.getCompletedCards()
     .then( data =>{
       data.forEach( card =>{
         console.log('card', card);
-        this.props.onAddCard(card.title, card.status, card.priority);
+        this.props.onAddCard(card.title, card.status, card.priority, card.createdBy, card.AssignedTo);
       });
     })
 
@@ -153,8 +153,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    onAddCard: (title, author) => {
-      dispatch(addCard(title, author));
+    onAddCard: (title, status, priority, createdBy, AssignedTo) => {
+      dispatch(addCard(title, status, priority, createdBy, AssignedTo));
     }
   }
 };

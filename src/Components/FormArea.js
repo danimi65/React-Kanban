@@ -21,14 +21,32 @@ class FormArea extends React.Component {
   this.assignedToValue= this.assignedToValue.bind(this);
   }
 
+  addCard(card){
+    return new Promise( (resolve, reject) =>{
+    function reqListener () {
+      let data = JSON.parse(this.responseText);
+      resolve(data);
+    console.log(this.responseText);
+    }
+    var oReq = new XMLHttpRequest();
+    oReq.addEventListener("load", reqListener);
+    oReq.open("POST", "/api/card");
+    oReq.send(card);
+  });
+  }
+
   handleSubmit(event){
     alert('submitted' + this.state.handleSubmit);
     event.preventDefault();
-    this.props.addCard({
+    console.log(this.state, 'state');
+    this.addCard({
       title: this.state.title,
       priority: this.state.priority,
-      status: this.state.status
+      status: this.state.status,
+      createdBy: this.state.createdBy,
+      assignedTo: this.state.assignedTo 
     });
+    console.log('add card', this.addCard);
 
 
   }
@@ -67,18 +85,18 @@ class FormArea extends React.Component {
       <form onSubmit={this.handleSubmit}>
 
         <div>
-          <input type="text" name="title" placeholder="Title"/> 
+          <input type="text" name="title" placeholder="Title" onChange={this.titleValue}/> 
           <div>
-           <input type="text" name="priority" placeholder="Priority"/> 
+           <input type="text" name="priority" placeholder="Priority" onChange={this.priorityValue}/> 
            </div>
            <div>
-            <input type="text" name="Status" placeholder="Status"/> 
+            <input type="text" name="Status" placeholder="Status" onChange={this.statusValue}/> 
             </div>
              <div>
-            <input type="text" name="CreatedAt" placeholder="Created At"/> 
+            <input type="text" name="CreatedAt" placeholder="Created At" onChange={this.createdByValue}/> 
             </div>
              <div>
-            <input type="text" name="AssignedTo" placeholder="Assigned To"/> 
+            <input type="text" name="AssignedTo" placeholder="Assigned To" onChange={this.assignedToValue}/> 
             </div>
            
             <div>

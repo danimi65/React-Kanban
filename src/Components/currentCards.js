@@ -14,7 +14,7 @@ class CurrentCards extends Component{
           title={card.title}
           priority={card.priority}
           status={card.status}
-          createdAt={card.createdAt}
+          createdAt={card.createdBy}
           AssignedTo={card.AssignedTo}
           />)
         })}
@@ -23,4 +23,4 @@ class CurrentCards extends Component{
     }
   } 
 
-  export default CurrentCards;  
+  export default CurrentCards;    

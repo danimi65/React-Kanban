@@ -16,10 +16,13 @@ router.route('/')
   });
 })
 .post((req, res) =>{
-  Card.create({
+  console.log(req.body, 'req.body');
+    Card.create({
     title: req.body.title,
     priority: req.body.priority,
-    status: req.body.status
+    status: req.body.status,
+    createdBy: req.body.createdBy,
+    assignedTo: req.body.assignedTo
   })
   .then((task) =>{
     res.send('congrats you posted');

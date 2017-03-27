@@ -5,8 +5,8 @@ const Card=(props) => (
     <p>Title: {props.title}</p>
     <p>Priority: {props.priority}</p>
     <p>Status: {props.status}</p>
-    <p>Created at: {props.createdAt}</p>
-    <p> Assigned To: {props.AssignedTo}</p>
+    <p>Created by: {props.createdBy}</p>
+    <p>Assigned To: {props.AssignedTo}</p>
   </div>
 )
 

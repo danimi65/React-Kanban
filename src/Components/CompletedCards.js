@@ -14,7 +14,7 @@ class CompletedCards extends Component{
           title={card.title}
           priority={card.priority}
           status={card.status}
-          createdAt={card.createdAt}
+          createdAt={card.createdBy}
           AssignedTo={card.AssignedTo}
           />)
         })}
