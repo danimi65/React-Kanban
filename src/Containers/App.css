@@ -18,6 +18,50 @@
   font-size: large;
 }
 
+.mainBoard{
+ display: flex;
+ flex-flow: row wrap;
+ padding-top: 15px;
+}
+
+.body{
+  padding-left: 50px;
+  padding-top: 20px;
+}
+
+.toDoCards{
+  text-align: center;
+  border: 3px solid red;
+  width: 30%;
+}
+.currentCards{
+  text-align: center;
+  border: 3px solid blue;
+  width: 30%;
+}
+
+.completedCards{
+  text-align: center;
+  border: 3px solid green;
+  width: 30%;
+}
+
+.oneCard{
+    border: 3px solid pink;
+}
+
+.inputForm{
+ padding-left: 300px;
+}
+
+h2{
+  text-align: center;
+}
+
+
+
+
+
 @keyframes App-logo-spin {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }

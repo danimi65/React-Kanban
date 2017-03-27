@@ -1,40 +1,58 @@
 import React, { Component } from 'react';
-// import logo from './logo.svg';
 import '../App.css';
-import FormArea from '../../Components/FormArea.js';
-// import Card from '../../Components/Card.js';
-import CardList from '../../Components/CardList.js';
+import FormArea from '../../Components/FormArea.js'; 
+import ToDoCards from '../../Components/ToDoCards.js';
+import CurrentCards from '../../Components/CurrentCards.js';
+import CompletedCards from '../../Components/CompletedCards.js';
+import { connect } from 'react-redux';
+import { addCard } from '../../actions';
+
+
+
+
 
 class App extends Component {
   constructor(){
     super();
-    this.state = {
-      toDoCards: [],
-      currentCards: [],
-      completedCards: []
-    };
+    // this.state = {
+    //   toDoCards: [],
+    //   currentCards: [],
+    //   completedCards: []
+    // };
   }
-  componentWillMount() {
-    console.log(this.getToDoCards);
 
-    this.getToDoCards().then((data)=>{
-      console.log('data',data)
-      this.setState({toDoCards:JSON.parse(data) });
-    });
-    this.getCurrentCards().then((data)=>{
-      this.setState({currentCards:JSON.parse(data)});
-    });
-    this.getCompletedCards().then((data) =>{
-      this.setState({completedCards:JSON.parse(data)});
-    });
+    // this.getToDoCards().then((data)=>{
+    //   console.log('data',data)
+    //   this.setState({toDoCards:JSON.parse(data) });
+    // });
+    // this.getCurrentCards().then((data)=>{
+    //   this.setState({currentCards:JSON.parse(data)});
+    // });
+    // this.getCompletedCards().then((data) =>{
+    //   this.setState({completedCards:JSON.parse(data)});
+    // });
     
+
+ addCard(){
+    return new Promise( (resolve, reject) =>{
+    function reqListener () {
+      let data = JSON.parse(this.responseText);
+      resolve(data);
+    console.log(this.responseText);
+    }
+    var oReq = new XMLHttpRequest();
+    oReq.addEventListener("load", reqListener);
+    oReq.open("POST", "/api/card/");
+    oReq.send();
+  });
   }
 
   getToDoCards(){
     return new Promise( (resolve, reject) =>{
     function reqListener () {
-      resolve(this.responseText);
-    console.log(this.responseText);
+      let data = JSON.parse(this.responseText);
+    console.log('get to do ', this.responseText);
+      resolve(data);
     }
     var oReq = new XMLHttpRequest();
     oReq.addEventListener("load", reqListener);
@@ -42,10 +60,13 @@ class App extends Component {
     oReq.send();
   });
   }
+
+
    getCurrentCards(){
     return new Promise( (resolve, reject) =>{
     function reqListener () {
-      resolve(this.responseText);
+      let data = JSON.parse(this.responseText);
+      resolve(data);
     console.log(this.responseText);
     }
     var oReq = new XMLHttpRequest();
@@ -57,7 +78,8 @@ class App extends Component {
    getCompletedCards(){
     return new Promise( (resolve, reject) =>{
     function reqListener () {
-      resolve(this.responseText);
+      let data = JSON.parse(this.responseText);
+      resolve(data);
     console.log(this.responseText);
     }
     var oReq = new XMLHttpRequest();
@@ -66,18 +88,79 @@ class App extends Component {
     oReq.send();
   });
   }
+
+  componentWillMount() {
+    this.getToDoCards()
+    .then( data =>{
+      data.forEach( card =>{
+        console.log('card', card);
+        this.props.onAddCard(card.title, card.status, card.priority);
+      });
+    })
+     this.getCurrentCards()
+    .then( data =>{
+      data.forEach( card =>{
+        console.log('card', card);
+        this.props.onAddCard(card.title, card.status, card.priority);
+      });
+    })
+     this.getCompletedCards()
+    .then( data =>{
+      data.forEach( card =>{
+        console.log('card', card);
+        this.props.onAddCard(card.title, card.status, card.priority);
+      });
+    })
+
+  }
   render() {
     return (
-      <div>
+      <div className="body">
+
+      <div className="inputForm">
         <FormArea />
-        <CardList className="todo" cards={this.state.toDoCards} />
-        <CardList className="current" cards={this.state.currentCards} />
-        <CardList className="completed" cards={this.state.completedCards} />
+      </div>
+
+        <div className="mainBoard">
+
+        <div className="toDoCards">
+        <h2>To Do</h2>
+      
+        <ToDoCards className="todo" cards={this.props.cards} />
+        </div>
+
+        <div className="currentCards">
+        <h2> Current</h2>
+        <CurrentCards className="current" cards={this.props.cards} />
+        </div>
+
+        <div className="completedCards">
+        <h2>Completed</h2>
+        <CompletedCards className="completed" cards={this.props.cards} /> 
+        </div>
+        </div>
 
       </div>
     );
   }
 }
 
-export default App;
+const mapStateToProps = (state) => {
+  return {
+    cards: state.cards
+  }
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    onAddCard: (title, author) => {
+      dispatch(addCard(title, author));
+    }
+  }
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(App);
  

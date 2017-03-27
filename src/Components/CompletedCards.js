@@ -1,15 +1,15 @@
 import React, { Component } from 'react';
 import Card from './Card.js';
 
-class CurrentCards extends Component{
+class CompletedCards extends Component{
   constructor(props){
     super(props);
     console.log('props', props);
   }
-  render(){
+   render(){
     return(
-      <div className="Q">
-      {this.props.cards.filter((card) => card.status === "current").map((card) =>{
+      <div className="M">
+      {this.props.cards.filter((card) => card.status === "completed").map((card) =>{
         return (<Card
           title={card.title}
           priority={card.priority}
@@ -23,4 +23,4 @@ class CurrentCards extends Component{
     }
   } 
 
-  export default CurrentCards;  
+  export default CompletedCards;
