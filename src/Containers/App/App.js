@@ -93,22 +93,20 @@ class App extends Component {
     this.getToDoCards()
     .then( data =>{
       data.forEach( card =>{
-        console.log('card', card);
-        this.props.onAddCard(card.title, card.status, card.priority, card.createdBy, card.AssignedTo);
+        console.log('this.props', this.props);
+        this.props.onAddCard(card.title, card.status, card.priority, card.createdBy, card.assignedTo);
       });
     })
      this.getCurrentCards()
     .then( data =>{
       data.forEach( card =>{
-        console.log('card', card);
-        this.props.onAddCard(card.title, card.status, card.priority, card.createdBy, card.AssignedTo);
+        this.props.onAddCard(card.title, card.status, card.priority, card.createdBy, card.assignedTo);
       });
     })
      this.getCompletedCards()
     .then( data =>{
-      data.forEach( card =>{
-        console.log('card', card);
-        this.props.onAddCard(card.title, card.status, card.priority, card.createdBy, card.AssignedTo);
+      data.forEach( card =>{ 
+        this.props.onAddCard(card.title, card.status, card.priority, card.createdBy, card.assignedTo);
       });
     })
 
@@ -153,14 +151,14 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    onAddCard: (title, status, priority, createdBy, AssignedTo) => {
-      dispatch(addCard(title, status, priority, createdBy, AssignedTo));
+    onAddCard: (title, status, priority, createdBy, assignedTo) => {
+      dispatch(addCard(title, status, priority, createdBy, assignedTo));
     }
   }
 };
 
 export default connect(
-  mapStateToProps,
+  mapStateToProps, 
   mapDispatchToProps
 )(App);
  

@@ -1,5 +1,7 @@
 import React from 'react';
 // import addCardReq from '../Containers/App/App.js'
+import { connect } from 'react-redux';
+import { addCard } from '../actions';
 
 
 class FormArea extends React.Component {
@@ -20,7 +22,7 @@ class FormArea extends React.Component {
   this.statusValue= this.statusValue.bind(this);
   this.createdByValue= this.createdByValue.bind(this);
   this.assignedToValue= this.assignedToValue.bind(this);
-  this.addCardReq = this.addCardReq.bind(this);
+  // this.addCardReq = this.addCardReq.bind(this);
   }
 
   addCardReq(card){
@@ -28,7 +30,6 @@ class FormArea extends React.Component {
     function reqListener () {
       let data = this.responseText;
       resolve(data);
-    console.log(this.responseText);
     }
     var oReq = new XMLHttpRequest();
     oReq.addEventListener("load", reqListener);
@@ -39,25 +40,23 @@ class FormArea extends React.Component {
   }
 
   addCard(data){
+    console.log('assigned to', data.assignedTo);
     this.addCardReq(data)
     .then(data =>{
-      //send data
-      console.log('data', data);
+      this.props.onAddCard(data.title, data.status, data.priority, data.createdBy, data.assignedTo);
     });
   }
 
   handleSubmit(event){
-    alert('submitted' + this.state.handleSubmit);
     event.preventDefault();
-    console.log(this.state, 'state');
-    this.addCard({
-      title: this.state.title,
-      priority: this.state.priority,
-      status: this.state.status,
-      createdBy: this.state.createdBy,
-      assignedTo: this.state.assignedTo 
-    });
-    console.log('add card', this.addCard);
+      this.addCard({
+        title: this.state.title,
+        priority: this.state.priority,
+        status: this.state.status,
+        createdBy: this.state.createdBy,
+        assignedTo: this.state.assignedTo 
+      });
+   
 
 
   }
@@ -96,18 +95,18 @@ class FormArea extends React.Component {
       <form onSubmit={this.handleSubmit}>
 
         <div>
-          <input type="text" name="title" placeholder="Title" onChange={this.titleValue}/> 
+          <input type="text" name="title" value={this.state.value} placeholder="Title" onChange={this.titleValue}/> 
           <div>
-           <input type="text" name="priority" placeholder="Priority" onChange={this.priorityValue}/> 
+           <input type="text" name="priority" value={this.state.value} placeholder="Priority" onChange={this.priorityValue}/> 
            </div>
            <div>
-            <input type="text" name="Status" placeholder="Status" onChange={this.statusValue}/> 
+            <input type="text" name="status" value={this.state.value} placeholder="Status" onChange={this.statusValue}/> 
             </div>
              <div>
-            <input type="text" name="CreatedBy" placeholder="Created By" onChange={this.createdByValue}/> 
+            <input type="text" name="createdBy" value={this.state.value} placeholder="Created By" onChange={this.createdByValue}/> 
             </div>
              <div>
-            <input type="text" name="AssignedTo" placeholder="Assigned To" onChange={this.assignedToValue}/> 
+            <input type="text" name="assignedTo" value={this.state.value} placeholder="Assigned To" onChange={this.assignedToValue}/> 
             </div>
            
             <div>
@@ -121,4 +120,21 @@ class FormArea extends React.Component {
   }
 }
 
-export default FormArea;
+const mapStateToProps = (state) => {
+  return {
+    cards: state.cards
+  }
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    onAddCard: (title, status, priority, createdBy, assignedTo) => {
+      dispatch(addCard(title, status, priority, createdBy, assignedTo));
+    }
+  }
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(FormArea);

@@ -73,7 +73,9 @@ router.route('/:id/edit')
   {
     title: req.body.title,
     priority: req.body.priority,
-    status: req.body.status
+    status: req.body.status,
+    createdBy: req.body.createdBy,
+    assignedTo: req.body.assignedTo
   },
   {
     where:{

@@ -12,10 +12,10 @@ class CompletedCards extends Component{
       {this.props.cards.filter((card) => card.status === "completed").map((card) =>{
         return (<Card
           title={card.title}
-          priority={card.priority}
           status={card.status}
-          createdAt={card.createdBy}
-          AssignedTo={card.AssignedTo}
+          priority={card.priority}
+          createdBy={card.createdBy}
+          assignedTo={card.assignedTo}
           />)
         })}
       </div>
@@ -23,4 +23,4 @@ class CompletedCards extends Component{
     }
   } 
 
-  export default CompletedCards;
+  export default CompletedCards;  

@@ -14,8 +14,8 @@ class CurrentCards extends Component{
           title={card.title}
           priority={card.priority}
           status={card.status}
-          createdAt={card.createdBy}
-          AssignedTo={card.AssignedTo}
+          createdBy={card.createdBy}
+          assignedTo={card.assignedTo}
           />)
         })}
       </div>

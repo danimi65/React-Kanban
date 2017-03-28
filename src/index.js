@@ -7,6 +7,7 @@ import { createStore } from 'redux';
 import cards from './reducers';
 
 let store = createStore(cards);
+console.log('reducer cards', cards);
 
 ReactDOM.render(
   <Provider store={store}>

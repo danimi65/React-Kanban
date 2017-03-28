@@ -4,7 +4,6 @@ import Card from './Card.js';
 class ToDoCards extends Component{
   constructor(props){
     super(props);
-    console.log('props', props);
   }
   render(){
     return(
@@ -14,8 +13,8 @@ class ToDoCards extends Component{
           title={card.title}
           priority={card.priority}
           status={card.status}
-          createdAt={card.createdBy}
-          AssignedTo={card.AssignedTo}
+          createdby={card.createdBy}
+          assignedTo={card.assignedTo}
           />)
         })}  
       </div>
@@ -24,4 +23,4 @@ class ToDoCards extends Component{
   }
 } 
 
-export default ToDoCards; 
+export default ToDoCards;     

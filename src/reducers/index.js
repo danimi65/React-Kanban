@@ -14,13 +14,15 @@ function cards(state = initialState, action) {
           {
             title: action.title,
             priority: action.priority,
-            status: action.status
+            status: action.status,
+            createdBy: action.createdBy,
+            assignedTo: action.assignedTo
           }
         ]
       })
     default:
       return state;
-  }
+  } 
 }
 
-export default cards;  
+export default cards;   
