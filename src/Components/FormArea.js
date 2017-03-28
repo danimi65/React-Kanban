@@ -96,22 +96,18 @@ class FormArea extends React.Component {
 
         <div>
           <input type="text" name="title" value={this.state.value} placeholder="Title" onChange={this.titleValue}/> 
-          <div>
            <input type="text" name="priority" value={this.state.value} placeholder="Priority" onChange={this.priorityValue}/> 
-           </div>
-           <div>
-            <input type="text" name="status" value={this.state.value} placeholder="Status" onChange={this.statusValue}/> 
-            </div>
-             <div>
+            <select onChange={this.statusValue} value={this.state.value}>
+              <option disabled selected value>Status</option>
+              <option value="to do">To Do</option>
+              <option value="current">Current</option>
+              <option value="completed">Completed</option>
+            </select>
             <input type="text" name="createdBy" value={this.state.value} placeholder="Created By" onChange={this.createdByValue}/> 
-            </div>
-             <div>
-            <input type="text" name="assignedTo" value={this.state.value} placeholder="Assigned To" onChange={this.assignedToValue}/> 
-            </div>
+            <input type="text" name="assignedTo" value={this.state.value} placeholder="Assigned To" onChange={this.assignedToValue}/>
            
-            <div>
+        
             <button type="submit">Submit</button>
-            </div>
         </div>
 
       </form>
