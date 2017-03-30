@@ -26,4 +26,4 @@ class CompletedCards extends Component{
     }
   } 
 
-  export default CompletedCards;   
+  export default CompletedCards;    

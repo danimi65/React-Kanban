@@ -13,7 +13,8 @@ class Card extends Component{
 
   statusUpdate(event){
     event.preventDefault();
-    console.log('edit card', this.props.editStatus)
+    console.log('edit card', event.target.value)
+      console.log(this.props.id)
 
     this.props.editStatus({
       id: this.props.id,

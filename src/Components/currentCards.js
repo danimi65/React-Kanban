@@ -24,5 +24,5 @@ class CurrentCards extends Component{
       )
     }
   } 
-
+ 
   export default CurrentCards;    

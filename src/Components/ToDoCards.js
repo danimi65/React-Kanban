@@ -21,7 +21,7 @@ class ToDoCards extends Component{
       </div>
      
     )
-  }
+  } 
 } 
 
 export default ToDoCards;     

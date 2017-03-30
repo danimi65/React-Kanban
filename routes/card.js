@@ -25,7 +25,7 @@ router.route('/')
     assignedTo: req.body.assignedTo,
   })
   .then(task =>{
-    res.send(task);
+    res.json(task);
   });
 });
 

@@ -5,8 +5,8 @@ import { addCard } from '../actions';
 
 
 class FormArea extends React.Component {
-  constructor(){
-    super();
+  constructor(props){
+    super(props);
 
     this.state = {
     title: ' ',
@@ -39,10 +39,11 @@ class FormArea extends React.Component {
   });
   }
 
-  addCard(data){
+  addCard = (data) => {
     console.log('assigned to', data.assignedTo);
     this.addCardReq(data)
-    .then(data =>{
+    .then(newData =>{
+      let data = JSON.parse(newData)
       this.props.onAddCard(data.title, data.status, data.priority, data.createdBy, data.assignedTo);
     });
   }

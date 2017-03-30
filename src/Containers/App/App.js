@@ -65,9 +65,10 @@ class App extends Component {
   }
 
   editStatus(data){
+    console.log('edit status data', data);
+
     this.editCardReq(data)
     .then(data =>{
-    console.log('edit status data', data);
       this.props.onUpdateStatus(data.id, data.status);
     });
   }
@@ -144,7 +145,7 @@ class App extends Component {
       <div className="body">
 
       <div className="inputForm">
-        <FormArea />
+        <FormArea onAddCard={this.props.onAddCard}/>
       </div>
 
         <div className="mainBoard">
