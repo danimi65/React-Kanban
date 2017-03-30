@@ -7,15 +7,16 @@ class ToDoCards extends Component{
   }
   render(){
     return(
-      <div className="Q">
+      <div>
       {this.props.cards.filter((card) => card.status === "to do").map((card) =>{
-        return (<Card
+        return (<div className="todosingle"><Card
+          editStatus={this.props.editStatus}
           title={card.title}
           priority={card.priority}
           status={card.status}
           createdby={card.createdBy}
           assignedTo={card.assignedTo}
-          />)
+          /></div>)
         })}  
       </div>
      

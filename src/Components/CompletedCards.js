@@ -6,21 +6,24 @@ class CompletedCards extends Component{
     super(props);
     console.log('props', props);
   }
+   
    render(){
     return(
-      <div className="M">
+      <div>
       {this.props.cards.filter((card) => card.status === "completed").map((card) =>{
-        return (<Card
+        return (
+          <div className="completedsingle"><Card
+          editStatus={this.props.editStatus}
           title={card.title}
           status={card.status}
           priority={card.priority}
           createdBy={card.createdBy}
           assignedTo={card.assignedTo}
-          />)
+          /></div>)
         })}
       </div>
       )
     }
   } 
 
-  export default CompletedCards;  
+  export default CompletedCards;   

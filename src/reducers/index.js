@@ -1,4 +1,5 @@
-import { ADD_CARD } from '../actions';
+import { ADD_CARD, UPDATE_STATUS } from '../actions';
+
 
 const initialState = {
   cards: []
@@ -16,10 +17,26 @@ function cards(state = initialState, action) {
             priority: action.priority,
             status: action.status,
             createdBy: action.createdBy,
-            assignedTo: action.assignedTo
+            assignedTo: action.assignedTo,
+            id: action.id
           }
         ]
-      })
+      });
+      case UPDATE_STATUS:
+        let updateStatus = state.cards.map( card =>{
+          if(card.id === action.id){
+            card.status = action.status;
+          }else{
+            
+            return card;
+          }
+        });
+        return Object.assign({}, state, {
+          cards: [
+          ...updateStatus
+          ]
+        });
+
     default:
       return state;
   } 

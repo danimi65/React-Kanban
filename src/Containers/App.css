@@ -31,24 +31,52 @@
 
 .toDoCards{
   text-align: center;
-  border: 3px solid red;
+  /*border: 3px solid red;*/
   width: 30%;
 }
 .currentCards{
   text-align: center;
-  border: 3px solid blue;
+  border-left: 3px solid grey;
+  border-right: 3px solid grey;
   width: 30%;
 }
 
 .completedCards{
   text-align: center;
-  border: 3px solid green;
+  /*border: 3px solid green;*/
   width: 30%;
 }
 
-.oneCard{
-    border: 3px solid pink;
+.todosingle{
+  background-color: pink;
+  padding:10px;
+  margin: 10px;
 }
+
+.currentsingle{
+  background-color: #64E986;
+  padding:10px;
+  margin: 10px;
+}
+.completedsingle{
+  background-color: #E0B0FF;
+  padding:10px;
+  margin: 10px;
+}
+
+.toDoHeader{
+  border-bottom: 3px solid grey;
+
+}
+.currentHeader{
+  border-bottom: 3px solid grey;
+
+}
+.completedHeader{
+  border-bottom: 3px solid grey;
+
+}
+
 
 .inputForm{
  padding-left: 50px;

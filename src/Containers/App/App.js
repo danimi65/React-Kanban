@@ -5,7 +5,7 @@ import ToDoCards from '../../Components/ToDoCards.js';
 import CurrentCards from '../../Components/CurrentCards.js';
 import CompletedCards from '../../Components/CompletedCards.js';
 import { connect } from 'react-redux';
-import { addCard } from '../../actions';
+import { addCard, updateStatus} from '../../actions';
 
 
 
@@ -19,6 +19,8 @@ class App extends Component {
     //   currentCards: [],
     //   completedCards: []
     // };
+
+    this.editStatus = this.editStatus.bind(this);
   }
 
     // this.getToDoCards().then((data)=>{
@@ -38,7 +40,7 @@ class App extends Component {
     function reqListener () {
       let data = JSON.parse(this.responseText);
       resolve(data);
-    console.log(this.responseText);
+    console.log("add req", this.responseText);
     }
     var oReq = new XMLHttpRequest();
     oReq.addEventListener("load", reqListener);
@@ -46,6 +48,31 @@ class App extends Component {
     oReq.send(JSON.stringify(card));
   });
   }
+
+   editCardReq(card){
+    return new Promise( (resolve, reject) =>{
+    function reqListener () {
+      let data = JSON.parse(this.responseText);
+      resolve(data);
+    console.log("req data", data);
+    }
+    var oReq = new XMLHttpRequest();
+    oReq.addEventListener("load", reqListener);
+    oReq.open("PUT", "/api/card/editstatus", true);
+    oReq.setRequestHeader("Content-type", "applicaiton/json");
+    oReq.send(JSON.stringify(card));
+  });
+  }
+
+  editStatus(data){
+    this.editCardReq(data)
+    .then(data =>{
+    console.log('edit status data', data);
+      this.props.onUpdateStatus(data.id, data.status);
+    });
+  }
+
+
 
   getToDoCards(){
     return new Promise( (resolve, reject) =>{
@@ -94,24 +121,25 @@ class App extends Component {
     .then( data =>{
       data.forEach( card =>{
         console.log('this.props', this.props);
-        this.props.onAddCard(card.title, card.status, card.priority, card.createdBy, card.assignedTo);
+        this.props.onAddCard(card.title, card.status, card.priority, card.createdBy, card.assignedTo, card.id);
       });
     })
      this.getCurrentCards()
     .then( data =>{
       data.forEach( card =>{
-        this.props.onAddCard(card.title, card.status, card.priority, card.createdBy, card.assignedTo);
+        this.props.onAddCard(card.title, card.status, card.priority, card.createdBy, card.assignedTo, card.id);
       });
     })
      this.getCompletedCards()
     .then( data =>{
       data.forEach( card =>{ 
-        this.props.onAddCard(card.title, card.status, card.priority, card.createdBy, card.assignedTo);
+        this.props.onAddCard(card.title, card.status, card.priority, card.createdBy, card.assignedTo, card.id);
       });
     })
 
   }
   render() {
+    console.log('app this.props', this.props);
     return (
       <div className="body">
 
@@ -122,20 +150,31 @@ class App extends Component {
         <div className="mainBoard">
 
         <div className="toDoCards">
+
+        <div className="toDoHeader">
         <h2>To Do</h2>
-      
-        <ToDoCards className="todo" cards={this.props.cards} />
+        </div>
+       
+        <ToDoCards className="todo" cards={this.props.cards} editStatus={this.editStatus} />
+    
         </div>
 
         <div className="currentCards">
-        <h2> Current</h2>
-        <CurrentCards className="current" cards={this.props.cards} />
+
+         <div className="currentHeader">
+        <h2>Current</h2>
+        </div>
+        <CurrentCards className="current" cards={this.props.cards} editStatus={this.editStatus} />
+      
         </div>
 
         <div className="completedCards">
+         <div className="completedHeader">
         <h2>Completed</h2>
-        <CompletedCards className="completed" cards={this.props.cards} /> 
         </div>
+        
+        <CompletedCards className="completed" cards={this.props.cards} editStatus={this.editStatus} /> 
+        </div> 
         </div>
 
       </div>
@@ -151,8 +190,11 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    onAddCard: (title, status, priority, createdBy, assignedTo) => {
-      dispatch(addCard(title, status, priority, createdBy, assignedTo));
+    onUpdateStatus: (id, status) =>{
+      dispatch(updateStatus(id, status));
+    },
+    onAddCard: (title, status, priority, createdBy, assignedTo, id) => {
+      dispatch(addCard(title, status, priority, createdBy, assignedTo, id));
     }
   }
 };

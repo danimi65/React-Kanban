@@ -1,13 +1,44 @@
-import React from 'react';
+import React, { Component } from 'react';
+import {updateStatus} from '../actions';
 
-const Card=(props) => (
-    <div className ="oneCard">
-    <p>Title: {props.title}</p>
-    <p>Priority: {props.priority}</p>
-    <p>Status: {props.status}</p>
-    <p>Created by: {props.createdBy}</p>
-    <p>Assigned To: {props.assignedTo}</p>
+
+
+
+class Card extends Component{
+  constructor(props){
+    super(props);
+
+    this.statusUpdate=this.statusUpdate.bind(this);
+  }
+
+  statusUpdate(event){
+    event.preventDefault();
+    console.log('edit card', this.props.editStatus)
+
+    this.props.editStatus({
+      id: this.props.id,
+      status: event.target.value
+    });
+  }
+
+
+
+  render(){
+    return(
+    <div className="oneCard">
+    <p>Title: {this.props.title}</p>
+    <p>Priority: {this.props.priority}</p>
+    <p>Status:</p>  
+    <select onChange={this.statusUpdate} value={this.props.status}>
+              <option value="to do">To Do</option>
+              <option value="current">Current</option>
+              <option value="completed">Completed</option>
+            </select>
+    <p>Created by: {this.props.createdBy}</p>
+    <p>Assigned To: {this.props.assignedTo}</p>
   </div>
-)
+    )
+  }
+}
 
-export default Card;       
+export default Card;     

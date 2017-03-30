@@ -22,7 +22,7 @@ router.route('/')
     priority: req.body.priority,
     status: req.body.status,
     createdBy: req.body.createdBy,
-    assignedTo: req.body.assignedTo
+    assignedTo: req.body.assignedTo,
   })
   .then(task =>{
     res.send(task);
@@ -67,15 +67,11 @@ router.route('/completed')
   });
 });
 
-router.route('/:id/edit')
+router.route('/editstatus')
 .put((req, res) =>{
   Card.update(
   {
-    title: req.body.title,
-    priority: req.body.priority,
-    status: req.body.status,
-    createdBy: req.body.createdBy,
-    assignedTo: req.body.assignedTo
+   status: req.body.status
   },
   {
     where:{
@@ -83,7 +79,7 @@ router.route('/:id/edit')
     }
   })
   .then((task) =>{
-    res.send('put done');
+    res.send(task);
   });
 });
 

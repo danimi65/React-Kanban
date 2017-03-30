@@ -8,15 +8,17 @@ class CurrentCards extends Component{
   }
   render(){
     return(
-      <div className="Q">
+      <div>
       {this.props.cards.filter((card) => card.status === "current").map((card) =>{
-        return (<Card
+        return (
+          <div className="currentsingle"><Card
+          editStatus={this.props.editStatus}
           title={card.title}
           priority={card.priority}
           status={card.status}
           createdBy={card.createdBy}
           assignedTo={card.assignedTo}
-          />)
+          /></div>)
         })}
       </div>
       )
