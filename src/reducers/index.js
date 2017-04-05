@@ -6,6 +6,7 @@ const initialState = {
 };
 
 function cards(state = initialState, action) {
+  console.log(action);
   switch(action.type) {
     case ADD_CARD:
       return Object.assign({}, state, {
@@ -26,6 +27,7 @@ function cards(state = initialState, action) {
         let updateStatus = state.cards.map( card =>{
           if(card.id === action.id){
             card.status = action.status;
+            return card;
           }else{
             
             return card;
@@ -35,7 +37,7 @@ function cards(state = initialState, action) {
           cards: [
           ...updateStatus
           ]
-        });
+        }); 
 
     default:
       return state;

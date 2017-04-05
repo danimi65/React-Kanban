@@ -50,25 +50,29 @@ class App extends Component {
   }
 
    editCardReq(card){
+    console.log('before stfua=wegaeg',card);
     return new Promise( (resolve, reject) =>{
     function reqListener () {
       let data = JSON.parse(this.responseText);
+      console.log("req data", data);
       resolve(data);
-    console.log("req data", data);
     }
     var oReq = new XMLHttpRequest();
     oReq.addEventListener("load", reqListener);
-    oReq.open("PUT", "/api/card/editstatus", true);
-    oReq.setRequestHeader("Content-type", "applicaiton/json");
+    oReq.open('PUT', "/api/card/editstatus", true);
+    oReq.setRequestHeader("Content-type", "application/json");
+    console.log('oreq card', card);
     oReq.send(JSON.stringify(card));
   });
   }
 
   editStatus(data){
-    console.log('edit status data', data);
+    // console.log('edit status data', data);
+    // console.log('editStatus id', data.id);
 
     this.editCardReq(data)
     .then(data =>{
+      console.log('edit card req data',data);
       this.props.onUpdateStatus(data.id, data.status);
     });
   }
@@ -79,7 +83,7 @@ class App extends Component {
     return new Promise( (resolve, reject) =>{
     function reqListener () {
       let data = JSON.parse(this.responseText);
-    console.log('get to do ', this.responseText);
+    // console.log('get to do ', this.responseText);
       resolve(data);
     }
     var oReq = new XMLHttpRequest();
@@ -94,8 +98,8 @@ class App extends Component {
     return new Promise( (resolve, reject) =>{
     function reqListener () {
       let data = JSON.parse(this.responseText);
-      resolve(data);
     // console.log(this.responseText);
+      resolve(data);
     }
     var oReq = new XMLHttpRequest();
     oReq.addEventListener("load", reqListener);
@@ -108,7 +112,7 @@ class App extends Component {
     function reqListener () {
       let data = JSON.parse(this.responseText);
       resolve(data);
-    console.log(this.responseText);
+    // console.log(this.responseText);
     }
     var oReq = new XMLHttpRequest();
     oReq.addEventListener("load", reqListener);
@@ -120,27 +124,28 @@ class App extends Component {
   componentWillMount() {
     this.getToDoCards()
     .then( data =>{
+      console.log('data', data);
       data.forEach( card =>{
-        console.log('this.props', this.props);
-        this.props.onAddCard(card.title, card.status, card.priority, card.createdBy, card.assignedTo, card.id);
+        console.log('this.props', card);
+        this.props.onAddCard(card.title, card.priority, card.status, card.createdBy, card.assignedTo, card.id);
       });
     })
      this.getCurrentCards()
     .then( data =>{
       data.forEach( card =>{
-        this.props.onAddCard(card.title, card.status, card.priority, card.createdBy, card.assignedTo, card.id);
+        this.props.onAddCard(card.title, card.priority, card.status, card.createdBy, card.assignedTo, card.id);
       });
     })
      this.getCompletedCards()
     .then( data =>{
       data.forEach( card =>{ 
-        this.props.onAddCard(card.title, card.status, card.priority, card.createdBy, card.assignedTo, card.id);
+        this.props.onAddCard(card.title, card.priority, card.status, card.createdBy, card.assignedTo, card.id);
       });
     })
 
   }
   render() {
-    console.log('app this.props', this.props);
+    // console.log('app this.props', this.props);
     return (
       <div className="body">
 
@@ -152,7 +157,7 @@ class App extends Component {
 
         <div className="toDoCards">
 
-        <div className="toDoHeader">
+        <div className="toDoHeader"> 
         <h2>To Do</h2>
         </div>
        
@@ -194,8 +199,9 @@ const mapDispatchToProps = (dispatch) => {
     onUpdateStatus: (id, status) =>{
       dispatch(updateStatus(id, status));
     },
-    onAddCard: (title, status, priority, createdBy, assignedTo, id) => {
-      dispatch(addCard(title, status, priority, createdBy, assignedTo, id));
+    onAddCard: (title, priority, status, createdBy, assignedTo, id) => {
+      console.log('stuff', id);
+      dispatch(addCard(title, priority, status, createdBy, assignedTo, id));
     }
   }
 };

@@ -13,15 +13,15 @@ class Card extends Component{
 
   statusUpdate(event){
     event.preventDefault();
-    console.log('edit card', event.target.value)
-      console.log(this.props.id)
 
+    console.log('hello', this.props);
     this.props.editStatus({
       id: this.props.id,
       status: event.target.value
     });
+    console.log('edit card', event.target.value)
   }
-
+ 
 
 
   render(){
@@ -37,6 +37,7 @@ class Card extends Component{
             </select>
     <p>Created by: {this.props.createdBy}</p>
     <p>Assigned To: {this.props.assignedTo}</p>
+    
   </div>
     )
   }

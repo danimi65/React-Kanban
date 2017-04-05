@@ -44,7 +44,7 @@ class FormArea extends React.Component {
     this.addCardReq(data)
     .then(newData =>{
       let data = JSON.parse(newData)
-      this.props.onAddCard(data.title, data.status, data.priority, data.createdBy, data.assignedTo);
+      this.props.onAddCard(data.title, data.priority, data.status, data.createdBy, data.assignedTo);
     });
   }
 
@@ -125,8 +125,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    onAddCard: (title, status, priority, createdBy, assignedTo) => {
-      dispatch(addCard(title, status, priority, createdBy, assignedTo));
+    onAddCard: (title, priority, status, createdBy, assignedTo) => {
+      dispatch(addCard(title, priority, status, createdBy, assignedTo));
     }
   }
 };

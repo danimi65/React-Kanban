@@ -1,12 +1,13 @@
 export const ADD_CARD = 'ADD_CARD';
 export const UPDATE_STATUS = 'UPDATE_STATUS';
 
-export function addCard(title, status, priority, createdBy, assignedTo, id){
+export function addCard(title, priority, status, createdBy, assignedTo, id){
+  console.log('id', id);
   return{
     type: ADD_CARD,
     title, 
-    status, 
     priority,
+    status, 
     createdBy,
     assignedTo,
     id

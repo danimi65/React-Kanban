@@ -29,7 +29,8 @@ app.get('/', (req, res) =>{
 app.use('/api/card', cards);
 
 app.listen(PORT, function() {
+  db.sequelize.sync();
   console.log ('Server started on PORT', PORT);
 });
-
+ 
 module.exports = app;

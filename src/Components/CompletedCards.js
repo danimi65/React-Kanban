@@ -19,7 +19,8 @@ class CompletedCards extends Component{
           priority={card.priority}
           createdBy={card.createdBy}
           assignedTo={card.assignedTo}
-          /></div>)
+          id={card.id}
+          /></div>) 
         })}
       </div>
       )

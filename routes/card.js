@@ -69,17 +69,22 @@ router.route('/completed')
 
 router.route('/editstatus')
 .put((req, res) =>{
+  console.log('edkjowrijfaeiorjg', req.body);
   Card.update(
   {
+    id: req.body.id,
    status: req.body.status
   },
   {
     where:{
-      id: req.params.id
+      id: req.body.id
     }
   })
-  .then((task) =>{
-    res.send(task);
+  .then(() =>{
+    Card.findById(req.body.id)
+    .then((card) =>{
+      res.send(card);
+    });
   });
 });
 

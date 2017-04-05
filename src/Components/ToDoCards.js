@@ -14,8 +14,9 @@ class ToDoCards extends Component{
           title={card.title}
           priority={card.priority}
           status={card.status}
-          createdby={card.createdBy}
+          createdBy={card.createdBy}
           assignedTo={card.assignedTo}
+          id={card.id}
           /></div>)
         })}  
       </div>
@@ -24,4 +25,4 @@ class ToDoCards extends Component{
   } 
 } 
 
-export default ToDoCards;     
+export default ToDoCards;      
